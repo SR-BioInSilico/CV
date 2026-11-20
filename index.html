@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sindhuja Rajavelu</title>
+<style>
+  :root {
+    --ink:      #222222;
+    --grey-1:   #444444;
+    --grey-2:   #767676;
+    --grey-3:   #cccccc;
+    --brand:    #2a7ae2;
+    --bg:       #ffffff;
+  }
+  * , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--grey-1);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── NAV ── */
+  nav {
+    border-bottom: 1px solid var(--grey-3);
+    padding: 1.2rem 0;
+  }
+  .nav-inner {
+    max-width: 760px; margin: 0 auto; padding: 0 1.5rem;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  }
+  .nav-logo {
+    font-size: 1.05rem; font-weight: 600; color: var(--ink); text-decoration: none;
+  }
+  .nav-logo:hover { text-decoration: none; }
+  .nav-links { display: flex; gap: 1.4rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.95rem; color: var(--grey-2); text-decoration: none;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--brand); }
+
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.active { display: block; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+
+  /* ── PROFILE HEADER (home) ── */
+  .profile {
+    display: flex; gap: 1.8rem; align-items: flex-start; margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .avatar {
+    width: 110px; height: 110px; border-radius: 6px;
+    background: var(--grey-3); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.3rem; color: var(--bg); font-weight: 600;
+  }
+  .profile h1 { font-size: 1.5rem; color: var(--ink); margin-bottom: 0.2rem; }
+  .profile .tagline { color: var(--grey-2); font-size: 0.98rem; margin-bottom: 0.7rem; }
+  .profile .welcome { font-size: 0.95rem; color: var(--grey-1); max-width: 54ch; }
+
+  .meta-row { display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; margin-top: 0.8rem; font-size: 0.9rem; }
+  .meta-row span { color: var(--grey-2); }
+
+  /* ── SECTIONS ── */
+  h2.h-section {
+    font-size: 1.15rem; color: var(--ink);
+    margin: 2.2rem 0 0.9rem;
+    padding-bottom: 0.4rem; border-bottom: 1px solid var(--grey-3);
+  }
+  .wrap > h2.h-section:first-of-type { margin-top: 0; }
+  p { margin-bottom: 0.9rem; }
+
+  ul.plain { list-style: disc; margin-left: 1.3rem; margin-bottom: 0.9rem; }
+  ul.plain li { margin-bottom: 0.4rem; }
+
+  .research-item { margin-bottom: 1.3rem; }
+  .research-item h3 { font-size: 1rem; color: var(--ink); margin-bottom: 0.25rem; }
+  .research-item p { color: var(--grey-1); font-size: 0.96rem; margin-bottom: 0.3rem; }
+  .research-item .tags { font-size: 0.85rem; color: var(--grey-2); }
+
+  .connect-list { list-style: none; }
+  .connect-list li { margin-bottom: 0.45rem; font-size: 0.97rem; }
+  .connect-list .label { color: var(--grey-2); display: inline-block; width: 90px; }
+
+  /* CV / Blog placeholder pages */
+  .placeholder { padding: 3rem 0; }
+  .placeholder h2 { font-size: 1.3rem; color: var(--ink); margin-bottom: 0.6rem; }
+  .placeholder p { color: var(--grey-2); }
+
+  /* CV page */
+  .cv-header { margin-bottom: 0.3rem; }
+  .cv-header h1 { font-size: 1.5rem; color: var(--ink); }
+  .cv-header .cv-tagline { color: var(--grey-2); font-size: 0.98rem; margin-top: 0.15rem; }
+  .cv-contact { font-size: 0.9rem; color: var(--grey-2); margin: 0.7rem 0 1.6rem; }
+  .cv-contact a { color: var(--brand); }
+  .cv-download { font-size: 0.92rem; margin-bottom: 1.6rem; }
+
+  .cv-entry { margin-bottom: 1rem; }
+  .cv-entry .cv-role-row {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.3rem 1rem;
+    font-size: 0.98rem; color: var(--ink); font-weight: 600;
+  }
+  .cv-entry .cv-years { color: var(--grey-2); font-weight: 400; font-size: 0.9rem; white-space: nowrap; }
+  .cv-entry .cv-sub { font-size: 0.92rem; color: var(--grey-2); margin-bottom: 0.3rem; font-style: italic; }
+  .cv-entry ul { list-style: disc; margin-left: 1.3rem; }
+  .cv-entry ul li { margin-bottom: 0.3rem; font-size: 0.95rem; }
+
+  .cv-pub { font-size: 0.93rem; margin-bottom: 0.6rem; }
+  .cv-pub .pub-title { color: var(--ink); }
+
+  .skills-table { font-size: 0.93rem; }
+  .skills-table .skill-row { margin-bottom: 0.5rem; }
+  .skills-table .skill-label { color: var(--ink); font-weight: 600; }
+
+  /* Footer */
+  footer {
+    text-align: center; padding: 2rem 1.5rem; color: var(--grey-2); font-size: 0.85rem;
+    border-top: 1px solid var(--grey-3); margin-top: 2rem;
+  }
+
+  @media (max-width: 560px) {
+    .profile { flex-direction: column; align-items: center; text-align: center; }
+    .meta-row { justify-content: center; }
+    .nav-links { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" onclick="showPage('home');return false;">Sindhuja Rajavelu</a>
+    <ul class="nav-links">
+      <li><a href="#" data-page="home" class="active" onclick="showPage('home');return false;">Home</a></li>
+      <li><a href="#" data-page="cv" onclick="showPage('cv');return false;">CV</a></li>
+      <li><a href="#" data-page="blog" onclick="showPage('blog');return false;">Blog</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============ HOME ============ -->
+<div id="home" class="page active">
+  <div class="wrap">
+
+    <div class="profile">
+      <div class="avatar">SR</div>
+      <div>
+        <h1>Sindhuja Rajavelu, PhD (submitted)</h1>
+        <div class="tagline">Computational Biologist, Multi-Omics, Statistical Genetics &amp; Network Biology</div>
+        <p class="welcome">Welcome! I build and benchmark integrative multi-omics and network-biology pipelines to understand disease pathophysiology, identify biomarkers, and prioritize drug targets.</p>
+        <div class="meta-row">
+          <span>NIT Durgapur, Dept. of Biotechnology</span>
+          <span>Durgapur, West Bengal, India</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="h-section">About Me</h2>
+    <p>I'm a computational biologist working at the interface of genetics and systems biology, building integrative multi-omics and network-biology pipelines to understand disease pathophysiology. Full details on my skills and background are on the <a href="#" onclick="showPage('cv');return false;">CV</a> page.</p>
+
+    <h2 class="h-section">Research Interests</h2>
+    <p>Broadly, I'm interested in how genetics shapes disease, with a focus on metabolic and neurological conditions. My work spans:</p>
+    <ul class="plain">
+      <li>Genetics of metabolic and neurological/neuropsychiatric disease</li>
+      <li>Variant-to-gene mapping and network-based target prioritization</li>
+      <li>Host-microbiome interactions, linking the microbiome with human genetics</li>
+    </ul>
+
+    <h2 class="h-section">Current Research</h2>
+    <p>My PhD focuses on the pathophysiology of Polycystic Ovary Syndrome (PCOS) through an integrative multi-omics approach, prioritizing disease-associated genes and drug targets across ancestries and uncovering population-specific patterns in disease biology.</p>
+
+    <div class="research-item">
+      <h3>Neurodevelopmental disorders project</h3>
+      <p>Working to understand the causal variants and effects underlying autism spectrum disorder (ASD) and other neurodevelopmental disorders.</p>
+    </div>
+
+    <div class="research-item">
+      <h3>Host-microbiome interactions</h3>
+      <p>Studying interactions between the microbiome and human genetics in disease context.</p>
+    </div>
+
+    <h2 class="h-section">Mentoring</h2>
+    <p>I have guided 5 MTech students and 1 MSc student through their research projects, with 1 MTech student currently ongoing.</p>
+
+    <h2 class="h-section">Connect</h2>
+    <p>Find me on <a href="https://linkedin.com/in/sindhuja-rajavelu" target="_blank" rel="noopener">LinkedIn</a>.</p>
+
+  </div>
+  <footer>
+    This work is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+  </footer>
+</div>
+
+<!-- ============ CV ============ -->
+<div id="cv" class="page">
+  <div class="wrap">
+
+    <div class="cv-header">
+      <h1>Sindhuja Rajavelu</h1>
+      <div class="cv-tagline">Computational Biologist | Multi-Omics, Statistical Genetics &amp; Network Biology</div>
+    </div>
+    <div class="cv-contact">
+      Durgapur, West Bengal, India &nbsp;·&nbsp;
+      <a href="mailto:sindhujarajavelu@gmail.com">sindhujarajavelu@gmail.com</a> &nbsp;·&nbsp;
+      <a href="https://github.com/SR-BioInSilico" target="_blank" rel="noopener">github.com/SR-BioInSilico</a> &nbsp;·&nbsp;
+      <a href="https://linkedin.com/in/sindhuja-rajavelu" target="_blank" rel="noopener">linkedin.com/in/sindhuja-rajavelu</a>
+    </div>
+
+    <h2 class="h-section">Summary</h2>
+    <p>Computational biologist with six years of research experience building, validating and benchmarking integrative multi-omics and network-biology pipelines for understanding disease pathophysiology, biomarker identification, drug-target prediction and drug repurposing. First-authored a variant-to-gene mapping and target prioritization method that outperformed established tools, including Open Targets, PoPS and FUMA, and uncovered population-specific disease manifestations in PCOS. Strong foundation in Python and R, with skills in data integration, standardization, statistical analysis and machine learning. Currently exploring how AI-agent automation can accelerate biomarker identification and target identification for clinical-trial development, aiming toward precision medicine for complex diseases.</p>
+
+    <h2 class="h-section">Core Skills</h2>
+    <div class="skills-table">
+      <div class="skill-row"><span class="skill-label">Programming &amp; Computing:</span> Python (pandas, NumPy, SciPy, Matplotlib, Seaborn, scikit-learn), R, Bash/Linux shell scripting, Git</div>
+      <div class="skill-row"><span class="skill-label">Computational Science Methods:</span> LD clumping (PLINK) of GWAS summary statistics and proxy expansion (LDlink); variant-to-gene mapping with multi-source standardization across epigenetics (ChromHMM/Roadmap, ENCODE), QTLs (eQTL, pQTL, mQTL from GTEx and others), and 3D genome organization (Hi-C, TADs); polygenic risk scoring and target prioritization; pathway enrichment (Reactome, KEGG, MSigDB); bulk RNA-seq and microarray analysis (DESeq2, limma, GSEA) with GEO datasets; metabolomics annotation from LC-MS/GC-MS using MetaboAnalyst; structure-based druggability via PDB and pocket-site analysis</div>
+      <div class="skill-row">Cross-phenotype association (LDSC, MiXeR); exposure-outcome analysis using Mendelian randomization (exploratory)</div>
+      <div class="skill-row"><span class="skill-label">Machine Learning:</span> GLM, random forest, SVM, XGBoost (XGBT, XGBL) for biomarker and clinical-trial target prediction; self-learning/clustering algorithms</div>
+      <div class="skill-row"><span class="skill-label">Network Biology:</span> Degree-based proximity and separation analysis; network propagation-based target discovery</div>
+      <div class="skill-row"><span class="skill-label">Disease Domains Applied:</span> Female reproductive, metabolic and neuropsychiatric diseases</div>
+      <div class="skill-row"><span class="skill-label">AI &amp; Automation (emerging focus):</span> AI-agent-driven automation of variant-to-gene prioritization and drug-target discovery pipelines using multi-omics and PPI networks</div>
+    </div>
+
+    <h2 class="h-section">Research Experience</h2>
+
+    <div class="cv-entry">
+      <div class="cv-role-row"><span>PhD Researcher, Computational Biology, NIT Durgapur, India</span><span class="cv-years">2020-Present</span></div>
+      <div class="cv-sub">Thesis: Elucidating the Pathophysiology of Polycystic Ovary Syndrome via an Integrative Multi-omics Approach. Supervisor: Dr. Debojyoti De. Thesis submitted Sept 2026 (under revision).</div>
+      <ul>
+        <li>Applied integrated multi-omics evidence and a network-biology framework on PCOS-associated variants, scored genes by variant influence, prioritized targets across ancestries in 7 disease-relevant tissues, and uncovered population-specific differences in PCOS disease manifestation. Benchmarked against L2G, FUMA, MAGMA, PoPS and Open Targets. East Asian PCOS is more metabolic, whereas European PCOS is more dominated by immune functions. Validated output on independent patient transcriptomes with GSEA.</li>
+        <li>Nominated genetically supported drug-repurposing candidates, with one candidate independently corroborated by a PCOS clinical trial of anakinra.</li>
+        <li>Explored the genetic correlation between PCOS and immune/metabolic diseases, observing the same ancestry-specific pattern in East Asian and European cohorts; extending this through exposure-outcome Mendelian randomization (ongoing).</li>
+        <li>Mentored postgraduate students in omics analysis and scientific writing; communicated findings through peer-reviewed publications and conference presentations.</li>
+      </ul>
+    </div>
+
+    <div class="cv-entry">
+      <div class="cv-role-row"><span>Master's Researcher, Computational Biology, NIT Durgapur, India</span><span class="cv-years">2018-2020</span></div>
+      <ul>
+        <li>Developed a computational approach to uncover gene-regulatory effects of PCOS-associated genomic variants, later extended into the PhD framework.</li>
+      </ul>
+    </div>
+
+    <div class="cv-entry">
+      <div class="cv-role-row"><span>Undergraduate &amp; Summer Research, CSIR-CLRI, Chennai &amp; NCCS, Pune</span><span class="cv-years">2016-2018</span></div>
+      <ul>
+        <li>CSIR-CLRI: Synthesized and characterized amino acid-functionalized cobalt nanoparticles for biomedical scaffolds.</li>
+        <li>NCCS: Analyzed serum metabolomics (LC-MS/GC-MS) alterations in multiple myeloma.</li>
+      </ul>
+    </div>
+
+    <h2 class="h-section">Publications &amp; Presentations</h2>
+    <div class="cv-pub"><span class="pub-title">Rajavelu S, De D.</span> Gene prioritization across ancestries uncovers distinct molecular pathophysiology and therapeutic landscape in polycystic ovary syndrome. <em>npj Systems Biology and Applications</em> (2026). doi:10.1038/s41540-026-00772-6</div>
+    <div class="cv-pub"><span class="pub-title">Dutta S, Natoli T, Chanda D, Rajavelu S, De D.</span> A network-based efficient drug repurposing strategy for targeting diabesity. <em>Genes &amp; Diseases</em> 10(2):340-343 (2023)</div>
+    <div class="cv-pub"><span class="pub-title">Rajavelu S.</span> "Integrative Genomic and Metabolomic Analysis Reveals Tissue-Specific Contributions to PCOS" (poster), International Conference on Metabolomics and Lipidomics, IIT Bombay, Feb 2025</div>
+    <div class="cv-pub"><span class="pub-title">Rajavelu S.</span> "Integrative SNP-to-Gene Mapping and Network Prioritization for Therapeutic Target Identification in PCOS" (poster), Horizons in Structural and Computational Biology, IIT Hyderabad, Feb-Mar 2025</div>
+
+    <h2 class="h-section">Education</h2>
+    <ul class="plain">
+      <li>PhD, Biotechnology (thesis submitted Sept 2026, under revision), NIT Durgapur, India, 2020-Present</li>
+      <li>MTech, Biotechnology, NIT Durgapur, India, 2018-2020</li>
+      <li>BTech, Industrial Biotechnology, Government College of Technology, Coimbatore, India, 2014-2018</li>
+    </ul>
+
+    <h2 class="h-section">Fellowships &amp; Awards</h2>
+    <ul class="plain">
+      <li>Institute Fellowship for PhD, NIT Durgapur, 2020-2025</li>
+      <li>GATE qualified; GATE scholarship during MTech, 2018-2020</li>
+      <li>Summer Research Fellowship, Indian Academy of Sciences, 2016</li>
+    </ul>
+
+    <h2 class="h-section">Referees</h2>
+    <p style="font-size:0.93rem; color: var(--grey-2);">Dr Debojyoti De (Assistant Professor), Prof. Surabhi Chaudhuri, and Prof. Ashish Bhattacharjee, Department of Biotechnology, NIT Durgapur, India. Contact details available on request.</p>
+
+  </div>
+  <footer>
+    This work is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+  </footer>
+</div>
+
+<!-- ============ BLOG ============ -->
+<div id="blog" class="page">
+  <div class="wrap">
+    <div class="placeholder">
+      <h2>All Blog Posts</h2>
+      <p>Work in progress...</p>
+    </div>
+  </div>
+  <footer>
+    This work is licensed under a <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+  </footer>
+</div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.querySelector('.nav-links a[data-page="' + id + '"]').classList.add('active');
+    window.scrollTo(0,0);
+  }
+</script>
+
+</body>
+</html>
