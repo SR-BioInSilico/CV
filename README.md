@@ -1,4 +1,4 @@
-# Sindhuja Rajavelu — CV
+# Sindhuja Rajavelu - Curriculum Vitae
 
 Computational Biologist | Multi-Omics, Statistical Genetics & Network Biology
 
